@@ -158,11 +158,11 @@ const Detail = () => {
                         <div className="size">
                             <p>Choose size</p>
                             <div className="list-size">
-                                <input type="radio" id='s' name='size' value="Small" checked={sizeValue === 'Small' ? true : false} onChange={e => setSizeValue(e.target.value)} />
+                                <input type="radio" id='s' name='size' value="Small" checked={sizeValue === 'Small'} onChange={e => setSizeValue(e.currentTarget.value)} />
                                 <label htmlFor="s" onClick={() => setPrice(detail.price)}>Small</label>
-                                <input type="radio" id='m' name='size' value="Medium" checked={sizeValue === 'Medium' ? true : false} onChange={e => setSizeValue(e.target.value)} />
+                                <input type="radio" id='m' name='size' value="Medium" checked={sizeValue === 'Medium'} onChange={e => setSizeValue(e.currentTarget.value)} />
                                 <label htmlFor="m" onClick={() => setPrice(detail.price + detail.price * 0.05)}>Medium</label>
-                                <input type="radio" id='l' name='size' value="Large" checked={sizeValue === 'Large' ? true : false} onChange={e => setSizeValue(e.target.value)} />
+                                <input type="radio" id='l' name='size' value="Large" checked={sizeValue === 'Large'} onChange={e => setSizeValue(e.currentTarget.value)} />
                                 <label htmlFor="l" onClick={() => setPrice(detail.price + detail.price * 0.1)}>Large</label>
                             </div>
                         </div>

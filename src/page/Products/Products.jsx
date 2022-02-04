@@ -25,6 +25,8 @@ const Products = () => {
 
     useEffect(() => {
         getData()
+
+        return getData
     }, [param])
 
     const getData = async () => {
