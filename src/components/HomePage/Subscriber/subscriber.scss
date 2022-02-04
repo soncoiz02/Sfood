@@ -1,0 +1,110 @@
+.Home__subscribe {
+  position: relative;
+  width: 100%;
+  margin: 50px 0;
+  background: url("../../../assets/img/bg3.jpg");
+  background-size: cover;
+  padding: 100px 50px;
+  .container {
+    position: relative;
+    .card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(to bottom, #f8df8b, white);
+      border-radius: 15px;
+      padding: 50px 30px;
+      width: 60%;
+      box-shadow: 0 0 20px 1px rgba(148, 81, 11, 0.4);
+    }
+    h2 {
+      color: rgb(252, 102, 48);
+      width: calc(100% - 200px);
+      text-align: center;
+      line-height: 46px;
+    }
+    .dsc {
+      margin: 20px 0 50px;
+      font-size: 16px;
+      color: gray;
+      width: calc(100% - 100px);
+      text-align: center;
+    }
+    .form {
+      position: relative;
+      width: calc(100% - 200px);
+      border-radius: 50px;
+      background: white;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      padding: 10px;
+      margin-bottom: 50px;
+      transition: 0.3s;
+      &.active {
+        border: 2px solid rgb(253, 113, 113);
+        box-shadow: 0 0 10px 1px rgba(243, 146, 45, 0.4);
+      }
+      input[type="text"] {
+        height: 100%;
+        width: 100%;
+        font-size: 18px;
+        color: gray;
+        border: none;
+        padding: 15px 200px 15px 15px;
+      }
+      input[type="submit"] {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        padding: 15px 30px;
+        background: rgb(255, 55, 55);
+        border-radius: 50px;
+        color: white;
+        cursor: pointer;
+        font: {
+          size: 20px;
+          weight: 600;
+        }
+        border: none;
+        margin-left: auto;
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .Home__subscribe {
+    padding: 30px 15px;
+    .container {
+      .card {
+        width: 100%;
+        padding: 30px 20px;
+        h2 {
+          width: 100%;
+        }
+        .dsc {
+          margin: 10px 0 30px 0;
+          width: 100%;
+        }
+
+        .form {
+          width: 100%;
+          margin-bottom: 30px;
+
+          input[type="text"] {
+            padding: 10px 100px 10px 10px;
+            font-size: 14px;
+          }
+
+          input[type="submit"] {
+            padding: 10px;
+            font-size: 14px;
+          }
+        }
+      }
+    }
+  }
+}

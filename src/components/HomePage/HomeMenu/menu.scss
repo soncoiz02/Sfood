@@ -1,0 +1,134 @@
+.Home__menu {
+  position: relative;
+  width: 100%;
+  .container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 50px 0;
+    padding: 50px 30px 80px 30px;
+
+    h2 {
+      color: #202243;
+      &::after {
+        position: absolute;
+        content: "";
+        width: 100px;
+        height: 3px;
+        border-radius: 5px;
+        bottom: -5px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: coral;
+      }
+    }
+
+    .list {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+
+      .item {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 15px 0;
+        &::after {
+          position: absolute;
+          content: "";
+          width: 0;
+          height: 5px;
+          border-radius: 5px;
+          background: coral;
+          bottom: -20px;
+          left: 50%;
+          transform: translateX(-50%);
+          transition: 0.2s;
+        }
+        &:hover {
+          &::after {
+            width: 100%;
+          }
+          .name {
+            color: coral;
+          }
+          .img {
+            box-shadow: 0 0 15px 3px rgba(243, 146, 45, 0.2);
+            border: 3px solid coral;
+            background: rgba(255, 127, 80, 0.2);
+          }
+        }
+        &:nth-child(6) {
+          .img {
+            img {
+              width: 50%;
+            }
+          }
+        }
+        &:nth-child(7) {
+          .img {
+            img {
+              width: 45%;
+            }
+          }
+        }
+        .img {
+          position: relative;
+          width: 150px;
+          height: 150px;
+          border-radius: 50%;
+          overflow: hidden;
+          background: whitesmoke;
+          transition: 0.1s;
+          cursor: pointer;
+          img {
+            position: absolute;
+            width: 80%;
+            height: auto;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+          }
+        }
+        .name {
+          font: {
+            size: 22px;
+            weight: 600;
+          }
+          transition: 0.2s;
+          color: #202243;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .Home__menu {
+    .container {
+      padding: 30px 15px 50px 15px;
+      gap: 30px 0;
+
+      h2 {
+        font-size: 30px;
+      }
+      .list {
+        overflow-x: scroll;
+        gap: 0 10px;
+        .item {
+          .img {
+            width: 100px;
+            height: 100px;
+          }
+          .name {
+            font-size: 18px;
+          }
+        }
+      }
+    }
+  }
+}

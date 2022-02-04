@@ -1,0 +1,50 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@700&family=Roboto:wght@400;500;700&display=swap");
+@import "./sass/variable";
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: $roboto;
+}
+
+.container {
+  position: relative;
+  display: flex;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+#root {
+  width: 100%;
+  position: relative;
+}
+
+input,
+textarea {
+  outline: none;
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+h2 {
+  position: relative;
+  font: {
+    size: 36px;
+    weight: 600;
+  }
+}
+@import "~slick-carousel/slick/slick.css";
+@import "~slick-carousel/slick/slick-theme.css";

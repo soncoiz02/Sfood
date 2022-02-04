@@ -1,0 +1,161 @@
+.Home__customer {
+  position: relative;
+  width: 100%;
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: 50px 0;
+    padding: 50px 30px;
+
+    h2 {
+      color: #202243;
+      text-align: center;
+      &::after {
+        position: absolute;
+        content: "";
+        width: 100px;
+        height: 3px;
+        border-radius: 5px;
+        bottom: -5px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: coral;
+      }
+    }
+
+    .slick-slider {
+      .slick-track {
+        display: flex;
+        align-items: center;
+        gap: 0 20px;
+      }
+      .slick-slide {
+        .card {
+          height: 500px;
+          opacity: 0.8;
+          background: whitesmoke;
+        }
+        &.slick-current {
+          .card {
+            opacity: 1;
+            height: 550px;
+            background: linear-gradient(-145deg, #f59e6481, transparent);
+          }
+        }
+      }
+      .card {
+        position: relative;
+        display: flex !important;
+        border-radius: 15px;
+        flex-direction: column;
+        padding: 30px 50px;
+        align-items: center;
+        .img {
+          position: relative;
+          width: 120px;
+          height: 120px;
+          overflow: hidden;
+          border-radius: 50%;
+          img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+        .rate {
+          display: flex;
+          align-items: center;
+          gap: 0 5px;
+          font-size: 18px;
+          color: #202243;
+          margin-top: 15px;
+          svg {
+            font-size: 20px;
+            color: rgb(238, 203, 2);
+          }
+        }
+        .content {
+          font-size: 16px;
+          color: gray;
+          margin-top: 30px;
+          text-align: center;
+          line-height: 24px;
+        }
+        .sign {
+          display: flex;
+          flex-direction: column;
+          margin-top: 50px;
+          gap: 10px 0;
+          text-align: center;
+          margin-top: auto;
+          .name {
+            font: {
+              size: 20px;
+              weight: 600;
+            }
+            color: #202243;
+            position: relative;
+            &::after {
+              content: "";
+              position: absolute;
+              width: 100px;
+              height: 1px;
+              background: gray;
+              bottom: -5px;
+              left: 50%;
+              transform: translateX(-50%);
+            }
+          }
+          .nickname {
+            font-size: 16px;
+            color: gray;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .Home__customer {
+    .container {
+      padding: 30px 15px;
+      gap: 30px 0;
+      h2 {
+        font-size: 30px;
+      }
+
+      .slick-slider {
+        .slick-slide {
+          .card {
+            padding: 20px 30px;
+            height: 400px;
+            .img {
+              width: 80px;
+              height: 80px;
+            }
+            .content {
+              font-size: 14px;
+              margin-top: 20px;
+            }
+            .sign {
+              .name {
+                font-size: 16px;
+              }
+              .nickname {
+                font-size: 12px;
+              }
+            }
+          }
+
+          &.slick-current {
+            .card {
+              height: 450px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
