@@ -14,7 +14,7 @@ import { setUserInfor, setIsSigned } from '../../redux/action/user'
 import Login2 from '../../assets/img/login2.jpg'
 
 import { app } from '../../firebase'
-import { getAuth, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, onAuthStateChanged } from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, onAuthStateChanged, signInWithRedirect } from "firebase/auth";
 import { getFirestore, collection, addDoc, doc, getDocs } from 'firebase/firestore'
 
 import { useNavigate } from 'react-router-dom';
@@ -47,7 +47,12 @@ const Login = () => {
     const onSignIn = data => console.log(data)
 
     const handleFbLogin = async () => {
-        await signInWithPopup(auth, fbProvider)
+        const res = await signInWithPopup(auth, fbProvider)
+        const credential = FacebookAuthProvider.credentialFromResult(res)
+        const token = credential.accessToken
+
+        const user = res.user
+        console.log(user, token);
     }
 
     const handleGgLogin = async () => {
