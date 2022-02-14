@@ -47,9 +47,7 @@ const Cart = () => {
                 cart.length > 0 ?
                     <div className="container">
                         <div className="Cart-list">
-                            <div className="nav">
-                                <div className="btn-delete-all" onClick={deleteAllItem}>Delete all</div>
-                            </div>
+                            <h2>Your order</h2>
                             <div className="list">
                                 {
                                     cart.map((e, index) => (
@@ -61,9 +59,9 @@ const Cart = () => {
                                                 <div className="detail">
                                                     <div className="name">{e.name}</div>
                                                     <div className="price">${e.price}</div>
-                                                    <div className="quantity">Quantity: {e.quantity}</div>
-                                                    <div className="size">Size: {e.size}</div>
+                                                    <div className="size">"{e.size}"</div>
                                                 </div>
+                                                <div className="quantity">{e.quantity}</div>
                                             </div>
                                             <div className="right">
                                                 <div className="total">Total: ${e.quantity * e.price}</div>
@@ -75,14 +73,10 @@ const Cart = () => {
                                     ))
                                 }
                             </div>
-                        </div>
-                        <div className="Cart-total">
-                            <div className="detail">
-                                <div className="total">Total: <span>${listTotalPrice.length > 0 && listTotalPrice.reduce((a, b) => Math.round(a + b))}</span></div>
-                                <p className="shipping">Shipping: <span>Freeship</span></p>
-                                <p className="voucher">Voucher: <span>No voucher used</span></p>
+                            <div className="list-btn">
+                                <div className="btn-delete-all">Delete all</div>
+                                <div className="btn-checkout">Check out</div>
                             </div>
-                            <div className="btn-checkout">Check out</div>
                         </div>
                     </div>
                     :

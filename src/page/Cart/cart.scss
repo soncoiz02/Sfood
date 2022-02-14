@@ -4,30 +4,18 @@
   .container {
     padding: 100px 30px;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
   }
 
   &-list {
     position: relative;
     display: flex;
     flex-direction: column;
-    gap: 20px 0;
-    width: 65%;
-    .nav {
-      display: flex;
-      border-radius: 5px;
-      width: 100%;
-      border: 1px solid rgba(0, 0, 0, 0.1);
-      padding: 10px;
-      .btn-delete-all {
-        padding: 10px 20px;
-        border-radius: 5px;
-        font-size: 16px;
-        color: white;
-        background: coral;
-        margin-right: auto;
-        cursor: pointer;
-      }
+    gap: 10px 0;
+    width: 100%;
+    h2 {
+      font-size: 34px;
+      color: #1f2258;
     }
     .list {
       display: flex;
@@ -41,14 +29,17 @@
         width: 100%;
         padding: 15px 0;
         border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        position: relative;
         .left {
           display: flex;
-          gap: 0 10px;
+          gap: 0 20px;
+          position: relative;
           .img {
             position: relative;
-            width: 150px;
-            height: 150px;
+            width: 130px;
+            height: 130px;
             overflow: hidden;
+            border-radius: 5px;
             img {
               position: absolute;
               width: 100%;
@@ -57,6 +48,7 @@
             }
           }
           .detail {
+            position: relative;
             display: flex;
             flex-direction: column;
             gap: 5px 0;
@@ -74,11 +66,23 @@
               }
               color: red;
             }
-            .quantity,
             .size {
-              font-size: 18px;
-              color: #1f2258;
+              font: {
+                size: 18px;
+                weight: 600;
+              }
+              color: #ff514e;
             }
+          }
+          .quantity {
+            position: absolute;
+            left: -10px;
+            top: -10px;
+            padding: 5px 15px;
+            border-radius: 50px;
+            background: gold;
+            color: white;
+            font-size: 16px;
           }
         }
         .right {
@@ -99,59 +103,33 @@
         }
       }
     }
-  }
-  &-total {
-    position: sticky;
-    top: 100px;
-    right: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 30px 0;
-    width: 30%;
-    height: 300px;
-    .detail {
+    .list-btn {
       display: flex;
-      flex-direction: column;
-      gap: 10px 0;
+      justify-content: space-between;
       width: 100%;
-      padding: 15px;
-      border-radius: 10px;
-      background: rgba(0, 0, 0, 0.7);
-      .total {
-        display: flex;
-        justify-content: space-between;
-        font: {
-          size: 30px;
-          weight: 600;
-        }
+      margin-top: 10px;
+      .btn-delete-all {
+        padding: 10px 25px;
+        border-radius: 5px;
+        background: #ff514e;
+        font-size: 16px;
         color: white;
-        padding-bottom: 50px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+        align-self: flex-start;
+        cursor: pointer;
       }
-      .shipping,
-      .voucher {
-        display: flex;
-        justify-content: space-between;
-        color: white;
+      .btn-checkout {
+        padding: 15px 35px;
+        border-radius: 50px;
         font-size: 18px;
-      }
-    }
-    .btn-checkout {
-      padding: 15px 35px;
-      background: #ff514e;
-      color: white;
-      font: {
-        size: 20px;
-        weight: 600;
-      }
-      align-self: center;
-      cursor: pointer;
-      border-radius: 50px;
-      transition: 0.5s;
-      &:hover {
-        padding: 15px 60px;
-        box-shadow: 0 0 10px 1px rgba(255, 127, 80, 0.4),
-          0 0 20px 1px rgba(255, 127, 80, 0.4);
+        color: white;
+        background: #ff514e;
+        transition: 0.5s;
+        cursor: pointer;
+
+        &:hover {
+          padding: 15px 40px;
+          box-shadow: 0 0 10px 2px #ff514ed2;
+        }
       }
     }
   }
@@ -181,6 +159,96 @@
         font: {
           size: 20px;
           weight: 600;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .Cart {
+    .container {
+      padding: 55px 15px 30px 15px;
+    }
+
+    &-list {
+      gap: 10px 0;
+      h2 {
+        font-size: 24px;
+      }
+
+      .list {
+        .item {
+          padding: 5px 0;
+          .left {
+            gap: 0 10px;
+            width: 70%;
+            .img {
+              width: 80px;
+              height: 80px;
+            }
+            .detail {
+              width: calc(100% - 90px);
+              .name {
+                font-size: 16px;
+              }
+              .price {
+                font-size: 16px;
+              }
+              .size {
+                font-size: 12px;
+              }
+            }
+            .quantity {
+              padding: 3px 10px;
+              font-size: 12px;
+            }
+          }
+          .right {
+            width: 30%;
+            gap: 5px;
+            align-self: flex-end;
+            .total {
+              font-size: 16px;
+            }
+            .btn-delete {
+              svg {
+                font-size: 16px;
+              }
+            }
+          }
+        }
+      }
+
+      .list-btn {
+        margin-top: 5px;
+        .btn-delete-all {
+          font-size: 12px;
+          padding: 6px 10px;
+        }
+        .btn-checkout {
+          font-size: 14px;
+          padding: 8px 20px;
+        }
+      }
+    }
+
+    &-empty {
+      padding: 30px 0;
+      .img {
+        aspect-ratio: 16/9;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+      .text {
+        p {
+          font-size: 16px;
+        }
+        .btn-order {
+          font-size: 16px;
         }
       }
     }
