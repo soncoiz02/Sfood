@@ -1,18 +1,36 @@
-import { faSignInAlt } from '@fortawesome/free-solid-svg-icons'
+import { faSignInAlt, faSignOutAlt, faUser } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { getAuth, signOut } from 'firebase/auth'
 import React from 'react'
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
-import { Link, NavLink, useLocation } from 'react-router-dom'
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
+import { app } from '../../firebase'
+import { setIsSigned, setUserInfor } from '../../redux/action/user'
 import './mobilenav.scss'
+
+const auth = getAuth(app)
 
 const MobileNav = ({ activeMobileNav, setActiveMobileNav }) => {
     const location = useLocation()
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+
     const isSigned = useSelector(state => state.user.isSigned)
     const userInfor = useSelector(state => state.user.infor)
 
     const handleLogout = () => {
-
+        dispatch(setIsSigned(false))
+        dispatch(setUserInfor({}))
+        signOut(auth)
+            .then(() => {
+                setActiveMobileNav(false)
+                navigate('/')
+            })
+            .catch((err) => {
+                console.log(err);
+            })
     }
     return (
         <div className={`Mobile-nav ${activeMobileNav === true ? 'active' : ''}`}>
@@ -24,7 +42,7 @@ const MobileNav = ({ activeMobileNav, setActiveMobileNav }) => {
                         </div>
                         <div className="name">{userInfor.displayName}</div>
                     </div> :
-                    <Link to="/login" className="btn-login">
+                    <Link to="/login" className="btn-login" onClick={() => setActiveMobileNav(false)}>
                         <FontAwesomeIcon icon={faSignInAlt} />
                         Login
                     </Link>
@@ -38,9 +56,14 @@ const MobileNav = ({ activeMobileNav, setActiveMobileNav }) => {
             {
                 isSigned === true &&
                 <div className="user-option">
-                    <div className="link">Your account</div>
-                    <div className="link">Your order</div>
-                    <div className="link" onClick={handleLogout}>Logout</div>
+                    <Link to={'/account'} className="link">
+                        <FontAwesomeIcon icon={faUser} />
+                        Your Account
+                    </Link>
+                    <div className="link" onClick={handleLogout}>
+                        <FontAwesomeIcon icon={faSignOutAlt} />
+                        Logout
+                    </div>
                 </div>
             }
         </div>

@@ -118,9 +118,14 @@
     .link {
       font-size: 16px;
       color: white;
-      padding: 5px 10px;
-      border-radius: 3px 50px 50px 3px;
+      padding: 8px 10px;
+      border-radius: 10px 50px 50px 10px;
       background: #ff3737;
+
+      svg {
+        font-size: 18px;
+        margin-right: 5px;
+      }
     }
   }
 }
