@@ -15,7 +15,7 @@ import Login2 from '../../assets/img/login2.jpg'
 
 import { app } from '../../firebase'
 import { getAuth, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, onAuthStateChanged, signInWithRedirect } from "firebase/auth";
-import { getFirestore, collection, addDoc, doc, getDocs } from 'firebase/firestore'
+import { getFirestore, collection, addDoc, doc, getDocs, setDoc, getDoc } from 'firebase/firestore'
 
 import { useNavigate } from 'react-router-dom';
 import { getDatabase, onValue, ref } from 'firebase/database';
@@ -28,7 +28,7 @@ const fbProvider = new FacebookAuthProvider();
 
 const db = getFirestore(app)
 const realDb = getDatabase(app)
-const cartRef = ref(realDb, 'cart/')
+
 
 const schema = yup.object({
     username: yup.string().trim().required('Username is requied'),
@@ -58,27 +58,34 @@ const Login = () => {
     const handleGgLogin = async () => {
         const querySnapshot = await getDocs(collection(db, "users"))
         const { user } = await signInWithPopup(auth, ggProvider)
+
         querySnapshot.forEach(doc => {
             if (doc.data().uid === user.providerData[0].uid) {
-                return
+                return false
             }
             else {
                 const userInfor = user.providerData[0]
-                addUser(userInfor)
+                const userData = {
+                    ...userInfor,
+                    recieveAddress: [],
+                    orderHistory: []
+                }
+                addUser(userData)
             }
         })
     }
 
     const addUser = async (data) => {
-        console.log(data);
-        const docRef = await addDoc(collection(db, "users"), data);
-        console.log("Document written with ID: ", docRef.id);
+        await setDoc(doc(db, "users", data.uid), data);
     }
 
     useState(() => {
-        const authChange = onAuthStateChanged(auth, (user) => {
+        const authChange = onAuthStateChanged(auth, async (user) => {
             if (user) {
-                const userInfor = user.providerData[0]
+                const userId = user.providerData[0].uid
+                const userDocRef = doc(db, 'users', userId)
+                const docSnap = await getDoc(userDocRef)
+                const userInfor = docSnap.data()
                 dispatch(setUserInfor(userInfor))
                 dispatch(setIsSigned(true))
                 navigate(-1)

@@ -2,14 +2,17 @@ import React, { useState, useEffect } from 'react'
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
 import logo from '../../assets/img/logo.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars, faShoppingBasket, faSignInAlt } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faShoppingBasket, faSignInAlt, faUser, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
 import './header.scss'
+
 import { useSelector, useDispatch } from 'react-redux'
 import { setUserInfor, setIsSigned } from '../../redux/action/user'
-import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth'
+import { addItem } from '../../redux/action/cart'
+
+import { getAuth, signOut } from 'firebase/auth'
 import { getDatabase, onValue, ref } from 'firebase/database'
 import { app } from '../../firebase'
-import { addItem } from '../../redux/action/cart'
+
 const auth = getAuth()
 const db = getDatabase(app)
 
@@ -43,17 +46,6 @@ const Header = ({ handleAviveMobileNav, activeMobileNav }) => {
         dispatch(setIsSigned(false))
         dispatch(setUserInfor({}))
     })
-
-    useState(() => {
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                const userInfor = user.providerData[0]
-                dispatch(setUserInfor(userInfor))
-                dispatch(setIsSigned(true))
-            }
-        })
-
-    }, [])
 
     useEffect(() => {
         if (isSigned === true) {
@@ -94,7 +86,7 @@ const Header = ({ handleAviveMobileNav, activeMobileNav }) => {
                 </Link>
                 <div className="Header-nav">
                     <NavLink to={'/'}>Home</NavLink>
-                    <NavLink to='/menu/our-foods' className={`${location.pathname.includes('/menu') ? 'active' : ''}`}>Online Menu</NavLink>
+                    <NavLink to='/menu/our-foods' className={`${location.pathname.includes('/menu') ? 'active' : ''}`}>Menu</NavLink>
                     <NavLink to='/about'>About us</NavLink>
                     <NavLink to='/contact'>Contact</NavLink>
                 </div>
@@ -112,11 +104,16 @@ const Header = ({ handleAviveMobileNav, activeMobileNav }) => {
                                 <div className="avt">
                                     <img src={userInfor.photoURL} alt="" />
                                 </div>
-                                <div className="name">{userInfor.displayName}</div>
+                                <div className="name">{userInfor.username ? userInfor.username : userInfor.displayName}</div>
                                 <div className={`more-detail ${activeUserNav === true ? 'active' : ''}`}>
-                                    <div className="link">Your account</div>
-                                    <div className="link">Your order</div>
-                                    <div className="link" onClick={handleLogout}>Logout</div>
+                                    <Link to={'/account/account-infor'} className="link">
+                                        <FontAwesomeIcon icon={faUser} />
+                                        Your Account
+                                    </Link>
+                                    <div className="link" onClick={handleLogout}>
+                                        <FontAwesomeIcon icon={faSignOutAlt} />
+                                        Logout
+                                    </div>
                                 </div>
                             </div>
                             :

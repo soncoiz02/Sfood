@@ -20,5 +20,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
+const storeLink = firebaseConfig.storageBucket
 
-export { app }
+
+export { app, storeLink }

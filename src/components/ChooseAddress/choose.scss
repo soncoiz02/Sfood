@@ -1,0 +1,122 @@
+.address-box {
+  .popup {
+    position: fixed;
+    background: rgba(0, 0, 0, 0.5);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+
+    &.show {
+      display: flex;
+    }
+
+    .cover {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 20px 0;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.1);
+      width: 800px;
+
+      .btn-close {
+        position: absolute;
+        right: 20px;
+        top: 20px;
+        cursor: pointer;
+        svg {
+          color: gray;
+          font-size: 20px;
+        }
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 10px 0;
+        input[type="text"] {
+          padding: 15px;
+          border-radius: 5px;
+          outline: none;
+          border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        input[type="submit"] {
+          align-self: center;
+          padding: 10px 50px;
+          border-radius: 5px;
+          background: #ff3737;
+          border: none;
+          outline: none;
+          color: white;
+          cursor: pointer;
+          font: {
+            size: 16px;
+            weight: 600;
+          }
+        }
+      }
+
+      .list-address {
+        display: flex;
+        flex-direction: column;
+        gap: 10px 0;
+        width: 100%;
+      }
+      .address {
+        display: flex;
+        align-items: center;
+        gap: 0 10px;
+        padding: 10px 0;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        width: 100%;
+        svg {
+          font-size: 18px;
+          color: #ff3737;
+        }
+        font-size: 18px;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .address-detail {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+
+    .address {
+      display: flex;
+      align-items: center;
+      gap: 0 10px;
+      svg {
+        font-size: 18px;
+        color: #ff3737;
+      }
+      font-size: 16px;
+      width: 80%;
+    }
+
+    .btn {
+      display: flex;
+      gap: 0 10px;
+    }
+
+    .btn-change,
+    .btn-add {
+      cursor: pointer;
+      svg {
+        font-size: 20px;
+        color: #ff3737;
+      }
+    }
+  }
+}
