@@ -3,20 +3,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useEffect, useState } from 'react'
 import './choose.scss'
 
-import { doc, updateDoc, arrayUnion, getFirestore, getDoc } from 'firebase/firestore'
-import { app } from '../../firebase'
+import { doc, updateDoc, arrayUnion, getFirestore } from 'firebase/firestore'
+import { app } from '../../firebaseConfig'
 import { useSelector } from 'react-redux'
 
 const db = getFirestore(app)
 
-const ChooseAddress = () => {
+const ChooseAddress = ({ listAddress, mainAddress, setMainAddress, getListAddress }) => {
     const userInfor = useSelector(state => state.user.infor)
 
-    const [listAddress, setListAddress] = useState([])
     const [popupChangeActive, setPopupChangeActive] = useState(false)
     const [popupAddActive, setPopupAddActive] = useState(false)
-
-    const [mainAddress, setMainAddress] = useState('')
 
     const [address, setAddress] = useState('')
     const [reciever, setReciever] = useState('')
@@ -25,38 +22,27 @@ const ChooseAddress = () => {
     const userRef = doc(db, 'users', userInfor.uid)
 
     useEffect(() => {
-        getRecieveAddress()
-    }, [listAddress.length])
-
-    const getRecieveAddress = async () => {
-        const docSnap = await getDoc(userRef)
-        const docData = docSnap.data()
-        setListAddress(docData.recieveAddress)
         const mainAddress = listAddress[0]
         if (mainAddress)
-            setMainAddress(`Reciever: ${mainAddress.reciever} - ${mainAddress.phoneNum}, ${mainAddress.address}`)
-    }
+            setMainAddress(`${mainAddress.reciever} - ${mainAddress.phoneNum}, ${mainAddress.address}`)
+    }, [listAddress.length])
 
-    const getDocument = async (data) => {
-        await updateDoc(userRef, {
-            recieveAddress: arrayUnion(data)
-        })
-        setPopupAddActive(false)
-        getRecieveAddress()
-    }
-
-    const handleAddAddress = (e) => {
+    const handleAddAddress = async (e) => {
         e.preventDefault()
         const addressData = {
             reciever: reciever,
             phoneNum: phoneNum,
             address: address
         }
-        getDocument(addressData)
+        await updateDoc(userRef, {
+            recieveAddress: arrayUnion(addressData)
+        })
+        setPopupAddActive(false)
+        getListAddress()
     }
 
     const handleChangeMainAddress = (reciever, phoneNum, address) => {
-        setMainAddress(`Reciever: ${reciever} - ${phoneNum}, ${address}`)
+        setMainAddress(`${reciever} - ${phoneNum}, ${address}`)
         setPopupChangeActive(false)
     }
 
@@ -68,7 +54,10 @@ const ChooseAddress = () => {
                         <div className="address-detail">
                             <div className="address">
                                 <FontAwesomeIcon icon={faMapMarkerAlt} />
-                                <p>{mainAddress}</p>
+                                {
+                                    mainAddress &&
+                                    <p>Reciever: {mainAddress}</p>
+                                }
                             </div>
                             <div className="btn">
                                 <div className="btn-add" onClick={() => setPopupAddActive(true)}>

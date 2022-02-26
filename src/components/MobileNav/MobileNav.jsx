@@ -6,7 +6,7 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
-import { app } from '../../firebase'
+import { app } from '../../firebaseConfig'
 import { setIsSigned, setUserInfor } from '../../redux/action/user'
 import './mobilenav.scss'
 

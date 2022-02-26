@@ -73,16 +73,34 @@
               }
               color: #ff514e;
             }
-          }
-          .quantity {
-            position: absolute;
-            left: -10px;
-            top: -10px;
-            padding: 5px 15px;
-            border-radius: 50px;
-            background: gold;
-            color: white;
-            font-size: 16px;
+            .quantity {
+              display: flex;
+              align-items: center;
+              gap: 0 5px;
+
+              .btn-minus,
+              .btn-plus {
+                width: 20px;
+                height: 20px;
+                border-radius: 3px;
+                background: #ff514e;
+                color: white;
+                line-height: 20px;
+                text-align: center;
+                cursor: pointer;
+                border: none;
+              }
+
+              .num {
+                border: none;
+                background: whitesmoke;
+                height: 20px;
+                border-radius: 3px;
+                width: 50px;
+                line-height: 25px;
+                text-align: center;
+              }
+            }
           }
         }
         .right {

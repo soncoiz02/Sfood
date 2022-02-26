@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { app } from '../../firebase'
+import { app } from '../../firebaseConfig'
 import { getDatabase, onValue, ref, remove } from 'firebase/database'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
@@ -13,32 +13,19 @@ import { addItem } from '../../redux/action/cart'
 const db = getDatabase(app)
 
 const Cart = () => {
-    const [listTotalPrice, setListTotalPrice] = useState([])
-
-    const isSigned = useSelector(state => state.user.isSigned)
     const userInfor = useSelector(state => state.user.infor)
     const cart = useSelector(state => state.cart.list)
-    const dispatch = useDispatch()
 
     useEffect(() => {
-        setListTotalPrice(cart.map(e => e.price * e.quantity))
     }, [cart.length])
 
-    const handleRemoveItem = async (index) => {
+
+    const handleDeleteItem = async (index) => {
         await remove(ref(db, `cart/${userInfor.uid}/value/${index}`))
-        onValue(ref(db, `cart/${userInfor.uid}/value`), (snapshot) => {
-            const data = snapshot.val()
-            if (data !== null) {
-                dispatch(addItem(data))
-            }
-            else {
-                dispatch(addItem([]))
-            }
-        })
     }
 
-    const deleteAllItem = () => {
-        remove(ref(db, `cart/${userInfor.uid}/value`))
+    const handleDeleteAllItem = async () => {
+        await remove(ref(db, `cart/${userInfor.uid}/value`))
     }
 
     return (
@@ -60,12 +47,16 @@ const Cart = () => {
                                                     <div className="name">{e.name}</div>
                                                     <div className="price">${e.price}</div>
                                                     <div className="size">"{e.size}"</div>
+                                                    <div className='quantity'>
+                                                        <button className="btn-minus" onClick={() => e.quantity -= 1}>-</button>
+                                                        <div className="num">{e.quantity}</div>
+                                                        <button className="btn-plus" onClick={() => e.quantity += 1}>+</button>
+                                                    </div>
                                                 </div>
-                                                <div className="quantity">{e.quantity}</div>
                                             </div>
                                             <div className="right">
                                                 <div className="total">Total: ${e.quantity * e.price}</div>
-                                                <div className="btn-delete" onClick={() => handleRemoveItem(index)}>
+                                                <div className="btn-delete" onClick={() => handleDeleteItem(index)}>
                                                     <FontAwesomeIcon icon={faTrashAlt} />
                                                 </div>
                                             </div>
@@ -74,8 +65,8 @@ const Cart = () => {
                                 }
                             </div>
                             <div className="list-btn">
-                                <div className="btn-delete-all">Delete all</div>
-                                <div className="btn-checkout">Check out</div>
+                                <div className="btn-delete-all" onClick={handleDeleteAllItem}>Delete all</div>
+                                <Link to={'/checkout'} className="btn-checkout">Check out</Link>
                             </div>
                         </div>
                     </div>

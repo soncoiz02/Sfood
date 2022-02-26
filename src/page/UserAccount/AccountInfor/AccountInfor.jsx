@@ -3,11 +3,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import ChooseAddress from '../../../components/ChooseAddress/ChooseAddress'
-import { app } from '../../../firebase'
+import { app } from '../../../firebaseConfig'
 import './infor.scss'
 
 import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage'
-import { doc, getFirestore, updateDoc } from 'firebase/firestore'
+import { doc, getDoc, getFirestore, updateDoc } from 'firebase/firestore'
 import { useDispatch } from 'react-redux'
 import { setUserInfor } from '../../../redux/action/user'
 
@@ -23,9 +23,21 @@ const AccountInfor = () => {
     const [fullname, setFullname] = useState('')
     const imgRef = useRef()
 
+    const [listAddress, setListAddress] = useState([])
+    const [mainAddress, setMainAddress] = useState('')
+
+    const userRef = doc(db, 'users', userInfor.uid)
+
     useEffect(() => {
         setFullname(userInfor.displayName)
+        getRecieveAddress()
     }, [userInfor])
+
+    const getRecieveAddress = async () => {
+        const docSnap = await getDoc(userRef)
+        const docData = docSnap.data()
+        setListAddress(docData.recieveAddress)
+    }
 
     const handleChangeImg = (e) => {
         const file = e.target.files[0]
@@ -103,7 +115,12 @@ const AccountInfor = () => {
                 </div>
                 <div className="cover">
                     <p className='title'>Your recieve address</p>
-                    <ChooseAddress />
+                    <ChooseAddress
+                        mainAddress={mainAddress}
+                        setMainAddress={setMainAddress}
+                        listAddress={listAddress}
+                        getListAddress={getRecieveAddress}
+                    />
                 </div>
                 <button className='btn-apply' onClick={handleUpdate}>Apply</button>
             </div>

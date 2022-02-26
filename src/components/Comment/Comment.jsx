@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import './comment.scss'
 
-import { app } from '../../firebase'
+import { app } from '../../firebaseConfig'
 import { getDatabase, set, ref, onValue } from 'firebase/database'
 import { useEffect } from 'react'
 

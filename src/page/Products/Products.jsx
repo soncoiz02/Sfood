@@ -24,9 +24,8 @@ const Products = () => {
     const [activeBtn, setActiveBtn] = useState(false)
 
     useEffect(() => {
-        getData()
-
-        return getData
+        const data = getData()
+        return data
     }, [param])
 
     const getData = async () => {

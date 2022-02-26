@@ -8,7 +8,7 @@ import LazyLoad from 'react-lazyload'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { getDatabase } from "firebase/database";
-import { app } from '../../firebase'
+import { app } from '../../firebaseConfig'
 
 import { addItem } from '../../redux/action/cart'
 

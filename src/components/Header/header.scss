@@ -205,6 +205,10 @@
           padding: 5px;
           font-size: 14px;
           color: #1f2258;
+          svg {
+            font-size: 16px;
+            margin-right: 5px;
+          }
           &:hover {
             background: rgba(0, 0, 0, 0.1);
           }

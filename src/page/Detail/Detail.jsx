@@ -5,12 +5,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import foodApi from '../../api/foodApi'
 import Comment from '../../components/Comment/Comment'
-import { addItem } from '../../redux/action/cart'
+import { addCartData, addItem } from '../../redux/action/cart'
 import './detail.scss'
 import Loader from '../../components/Loader/Loader'
 
 import { getDatabase, ref, onValue, set } from "firebase/database";
-import { app } from '../../firebase'
+import { app } from '../../firebaseConfig'
 
 const db = getDatabase(app)
 
@@ -48,10 +48,12 @@ const Detail = () => {
                 setDbData([])
             }
         })
-        getDetail()
+        const getDetailData = getDetail()
         setTimeout(() => {
             setLoader(false)
         }, 2000)
+
+        return getDetailData
     }, [])
 
 
@@ -95,7 +97,7 @@ const Detail = () => {
             else {
                 newCart.push(detailOrder)
             }
-            dispatch(addItem(newCart))
+            dispatch(addCartData(newCart))
             if (dbData.length > 0) {
                 let check = false
                 dbData.forEach(e => {

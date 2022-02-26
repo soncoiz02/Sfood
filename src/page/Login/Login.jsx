@@ -13,7 +13,7 @@ import { setUserInfor, setIsSigned } from '../../redux/action/user'
 
 import Login2 from '../../assets/img/login2.jpg'
 
-import { app } from '../../firebase'
+import { app } from '../../firebaseConfig'
 import { getAuth, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, onAuthStateChanged, signInWithRedirect } from "firebase/auth";
 import { getFirestore, collection, addDoc, doc, getDocs, setDoc, getDoc } from 'firebase/firestore'
 

@@ -19,9 +19,9 @@ const Home = () => {
     const [activeBtn, setActiveBtn] = useState(false)
 
     useEffect(() => {
-        getFoodData()
+        const getData = getFoodData()
 
-        return getFoodData
+        return getData
     }, [])
 
     window.onscroll = () => {

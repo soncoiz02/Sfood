@@ -1,7 +1,7 @@
 import { getAuth } from 'firebase/auth'
 import React from 'react'
 import { Navigate, Outlet, useLocation } from 'react-router-dom'
-import { app } from '../firebase'
+import { app } from '../firebaseConfig'
 
 const RequireAuth = () => {
     let auth = getAuth(app)

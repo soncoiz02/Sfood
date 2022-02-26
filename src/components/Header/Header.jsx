@@ -7,11 +7,11 @@ import './header.scss'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { setUserInfor, setIsSigned } from '../../redux/action/user'
-import { addItem } from '../../redux/action/cart'
+import { addCartData, addItem } from '../../redux/action/cart'
 
 import { getAuth, signOut } from 'firebase/auth'
 import { getDatabase, onValue, ref } from 'firebase/database'
-import { app } from '../../firebase'
+import { app } from '../../firebaseConfig'
 
 const auth = getAuth()
 const db = getDatabase(app)
@@ -53,7 +53,7 @@ const Header = ({ handleAviveMobileNav, activeMobileNav }) => {
                 const data = snapshot.val()
                 if (data !== null) {
                     setCartLength(data.length)
-                    dispatch(addItem(data))
+                    dispatch(addCartData(data))
                 }
             })
         }

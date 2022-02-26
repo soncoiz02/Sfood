@@ -4,7 +4,7 @@ const initialState = {
 
 const cartReducers = (state = initialState, action) => {
     switch (action.type) {
-        case "ADD_ITEM":
+        case "ADD_CART_DATA":
             const newList = action.payload
             return {
                 ...state,
