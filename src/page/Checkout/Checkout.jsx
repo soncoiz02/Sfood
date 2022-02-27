@@ -13,6 +13,7 @@ import { app } from '../../firebaseConfig'
 import { getDatabase, onValue, ref, remove } from 'firebase/database'
 import { addCartData } from '../../redux/action/cart'
 import { setUserInfor } from '../../redux/action/user'
+import { getCartData } from '../../utils/firebase'
 
 const db = getFirestore(app)
 const cartDb = getDatabase(app)
@@ -65,12 +66,8 @@ const Checkout = () => {
         })
 
         await remove(ref(cartDb, `cart/${userInfor.uid}/value`))
-        onValue(ref(cartDb, `cart/${userInfor.uid}/value/`), (snapshot) => {
-            const data = snapshot.val()
-            if (data !== null) {
-                dispatch(addCartData(data))
-            }
-        })
+        const cartData = getCartData(userInfor.uid)
+        dispatch(addCartData(cartData))
 
         userInfor.orderHistory.push(bill)
         dispatch(setUserInfor(userInfor))
