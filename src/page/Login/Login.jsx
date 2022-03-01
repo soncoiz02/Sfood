@@ -14,14 +14,13 @@ import { setUserInfor, setIsSigned } from '../../redux/action/user'
 import Login2 from '../../assets/img/login2.jpg'
 
 import { app } from '../../firebaseConfig'
-import { getAuth, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, onAuthStateChanged, connectAuthEmulator } from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, onAuthStateChanged } from "firebase/auth";
 import { getFirestore, collection, doc, getDocs, setDoc, getDoc } from 'firebase/firestore'
 
 import { useNavigate } from 'react-router-dom';
 
 
 const auth = getAuth(app);
-connectAuthEmulator(auth, "https://sfood.vercel.app/")
 const ggProvider = new GoogleAuthProvider();
 const fbProvider = new FacebookAuthProvider();
 

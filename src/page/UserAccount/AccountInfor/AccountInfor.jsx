@@ -53,7 +53,7 @@ const AccountInfor = () => {
     }
 
     const getImgLink = async () => {
-        const storageRef = ref(storage, 'image')
+        const storageRef = ref(storage, `image/${imgFile.name}`)
         const snapshot = await uploadBytes(storageRef, imgFile)
         if (snapshot) {
             const url = await getDownloadURL(storageRef)
