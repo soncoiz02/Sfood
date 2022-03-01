@@ -4,7 +4,7 @@
   border-radius: 5px;
   box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.1);
   padding: 30px;
-  width: calc(100% - 310px);
+  width: 100%;
   display: flex;
   gap: 0 50px;
   .avt {
@@ -83,6 +83,40 @@
       }
       color: white;
       cursor: pointer;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .account-infor {
+    padding: 30px 15px;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: none;
+    border-radius: 0;
+    gap: 20px 0;
+    width: 100%;
+    .avt {
+      gap: 10px 0;
+      .img {
+        width: 150px;
+      }
+      label {
+        font-size: 12px;
+        padding: 10px 20px;
+        border-radius: 5px;
+      }
+    }
+    .detail {
+      width: 100%;
+      .cover {
+        .title {
+          font-size: 14px;
+        }
+        input[type="text"] {
+          padding: 10px;
+        }
+      }
     }
   }
 }

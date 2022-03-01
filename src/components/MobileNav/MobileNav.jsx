@@ -1,8 +1,7 @@
-import { faSignInAlt, faSignOutAlt, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faSignInAlt, faSignOutAlt, faUser, faUserClock } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { getAuth, signOut } from 'firebase/auth'
 import React from 'react'
-import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
@@ -56,9 +55,13 @@ const MobileNav = ({ activeMobileNav, setActiveMobileNav }) => {
             {
                 isSigned === true &&
                 <div className="user-option">
-                    <Link to={'/account'} className="link">
+                    <Link to={'/account/account-infor'} className="link" onClick={() => setActiveMobileNav(false)}>
                         <FontAwesomeIcon icon={faUser} />
-                        Your Account
+                        Account
+                    </Link>
+                    <Link to={'/account/order-history'} className="link" onClick={() => setActiveMobileNav(false)}>
+                        <FontAwesomeIcon icon={faUserClock} />
+                        Order history
                     </Link>
                     <div className="link" onClick={handleLogout}>
                         <FontAwesomeIcon icon={faSignOutAlt} />

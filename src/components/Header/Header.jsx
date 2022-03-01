@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react'
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
 import logo from '../../assets/img/logo.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars, faShoppingBasket, faSignInAlt, faUser, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faShoppingBasket, faSignInAlt, faUser, faSignOutAlt, faUserClock } from '@fortawesome/free-solid-svg-icons'
 import './header.scss'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { setUserInfor, setIsSigned } from '../../redux/action/user'
-import { addCartData, addItem } from '../../redux/action/cart'
+import { addCartData } from '../../redux/action/cart'
 
 import { getAuth, signOut } from 'firebase/auth'
 import { getDatabase, onValue, ref } from 'firebase/database'
@@ -104,11 +104,15 @@ const Header = ({ handleAviveMobileNav, activeMobileNav }) => {
                                 <div className="avt">
                                     <img src={userInfor.photoURL} alt="" />
                                 </div>
-                                <div className="name">{userInfor.username ? userInfor.username : userInfor.displayName}</div>
+                                <div className="name">{userInfor.displayName}</div>
                                 <div className={`more-detail ${activeUserNav === true ? 'active' : ''}`}>
                                     <Link to={'/account/account-infor'} className="link">
                                         <FontAwesomeIcon icon={faUser} />
-                                        Your Account
+                                        Account
+                                    </Link>
+                                    <Link to={'/account/order-history'} className="link">
+                                        <FontAwesomeIcon icon={faUserClock} />
+                                        Order History
                                     </Link>
                                     <div className="link" onClick={handleLogout}>
                                         <FontAwesomeIcon icon={faSignOutAlt} />

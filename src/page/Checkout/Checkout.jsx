@@ -66,8 +66,7 @@ const Checkout = () => {
         })
 
         await remove(ref(cartDb, `cart/${userInfor.uid}/value`))
-        const cartData = getCartData(userInfor.uid)
-        dispatch(addCartData(cartData))
+        dispatch(addCartData([]))
 
         userInfor.orderHistory.push(bill)
         dispatch(setUserInfor(userInfor))
@@ -119,6 +118,7 @@ const Checkout = () => {
                                     <p className="title">Your order</p>
                                     <div className="list-dish">
                                         {
+                                            cart &&
                                             cart.map((dish, index) =>
                                                 <div className="item" key={index}>
                                                     <div className="img">
@@ -127,7 +127,6 @@ const Checkout = () => {
                                                     <div className="quantity">{dish.quantity}</div>
                                                     <div className="detail">
                                                         <div className="name">{dish.name}</div>
-                                                        <div className="dsc">{dish.dsc}</div>
                                                         <div className="size">"{dish.size}"</div>
                                                         <div className="price">${dish.price}</div>
                                                     </div>

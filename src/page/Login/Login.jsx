@@ -88,7 +88,7 @@ const Login = () => {
                 const userInfor = docSnap.data()
                 dispatch(setUserInfor(userInfor))
                 dispatch(setIsSigned(true))
-                navigate(-1)
+                navigate('/')
             }
         })
 

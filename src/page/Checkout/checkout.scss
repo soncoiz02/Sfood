@@ -437,8 +437,38 @@
             .item {
               .img {
                 width: 60px;
+                height: 60px;
               }
             }
+          }
+          .total-price {
+            font-size: 20px;
+            margin-top: 10px;
+          }
+        }
+
+        .btn-checkout {
+          padding: 10px 25px;
+          font-size: 16px;
+        }
+
+        .checkout-success {
+          gap: 5px 0;
+          .circle {
+            width: 80px;
+            height: 80px;
+            line-height: 80px;
+            p {
+              font-size: 35px;
+            }
+          }
+          p {
+            font-size: 16px;
+          }
+          a {
+            font-size: 14px;
+            padding: 10px 20px;
+            margin-top: 10px;
           }
         }
       }

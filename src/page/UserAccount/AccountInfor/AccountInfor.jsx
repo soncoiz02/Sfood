@@ -1,4 +1,4 @@
-import { faCog, faImage, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons'
+import { faImage } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'

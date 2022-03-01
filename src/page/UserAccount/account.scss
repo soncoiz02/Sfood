@@ -7,42 +7,14 @@
     padding: 80px 30px;
     height: 100%;
     gap: 0 30px;
+  }
+}
 
-    .side-bar {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 15px;
-      gap: 10px 0;
-      width: 280px;
-      height: 600px;
+@media (max-width: 767px) {
+  .Account {
+    .container {
+      padding: 30px 15px;
       background: white;
-      border-radius: 5px;
-      box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.1);
-      flex-shrink: 1;
-      .link {
-        display: flex;
-        gap: 0 10px;
-        padding: 10px 35px;
-        border-radius: 5px;
-        color: rgb(54, 54, 91);
-        border: 1px solid #ff3737;
-        width: 100%;
-        background: white;
-
-        &:hover {
-          background: #ff373736;
-        }
-
-        &.active {
-          background: #ff3737;
-          color: white;
-        }
-        font: {
-          size: 18px;
-          weight: 600;
-        }
-      }
     }
   }
 }

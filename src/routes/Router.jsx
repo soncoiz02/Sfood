@@ -9,7 +9,6 @@ import Menu from '../page/Menu/Menu'
 import Products from '../page/Products/Products'
 import Account from '../page/UserAccount/Account'
 import AccountInfor from '../page/UserAccount/AccountInfor/AccountInfor'
-import ChangePassword from '../page/UserAccount/ChangePassword/ChangePassword'
 import HistoryOrder from '../page/UserAccount/OrderHistory/OrderHistory'
 import RequireAuth from './RequireAuth'
 
@@ -30,7 +29,6 @@ const Router = () => {
                 <Route path="/cart" element={<Cart />} />
                 <Route path='/account' element={<Account />}>
                     <Route path='' element={<Account />} />
-                    <Route path='change-password' element={<ChangePassword />} />
                     <Route path='order-history' element={<HistoryOrder />} />
                     <Route path='account-infor' element={<AccountInfor />} />
                 </Route>
