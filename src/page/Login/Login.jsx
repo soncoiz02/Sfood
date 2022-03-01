@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import './login.scss'
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -8,26 +8,24 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLock, faUser } from '@fortawesome/free-solid-svg-icons';
 import { faFacebookF, faGooglePlusG } from '@fortawesome/free-brands-svg-icons';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setUserInfor, setIsSigned } from '../../redux/action/user'
 
 import Login2 from '../../assets/img/login2.jpg'
 
 import { app } from '../../firebaseConfig'
-import { getAuth, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, onAuthStateChanged, signInWithRedirect } from "firebase/auth";
-import { getFirestore, collection, addDoc, doc, getDocs, setDoc, getDoc } from 'firebase/firestore'
+import { getAuth, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, onAuthStateChanged, connectAuthEmulator } from "firebase/auth";
+import { getFirestore, collection, doc, getDocs, setDoc, getDoc } from 'firebase/firestore'
 
 import { useNavigate } from 'react-router-dom';
-import { getDatabase, onValue, ref } from 'firebase/database';
 
-import { addItem } from '../../redux/action/cart'
 
 const auth = getAuth(app);
+connectAuthEmulator(auth, "https://sfood.vercel.app/")
 const ggProvider = new GoogleAuthProvider();
 const fbProvider = new FacebookAuthProvider();
 
 const db = getFirestore(app)
-const realDb = getDatabase(app)
 
 
 const schema = yup.object({

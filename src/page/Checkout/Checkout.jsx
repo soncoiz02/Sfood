@@ -10,10 +10,9 @@ import ChooseAddress from '../../components/ChooseAddress/ChooseAddress'
 import { useRef } from 'react'
 import { arrayUnion, doc, getDoc, getFirestore, updateDoc } from 'firebase/firestore'
 import { app } from '../../firebaseConfig'
-import { getDatabase, onValue, ref, remove } from 'firebase/database'
+import { getDatabase, ref, remove } from 'firebase/database'
 import { addCartData } from '../../redux/action/cart'
 import { setUserInfor } from '../../redux/action/user'
-import { getCartData } from '../../utils/firebase'
 
 const db = getFirestore(app)
 const cartDb = getDatabase(app)
