@@ -26,7 +26,6 @@ const fbProvider = new FacebookAuthProvider();
 
 const db = getFirestore(app)
 
-
 const schema = yup.object({
     username: yup.string().trim().required('Username is requied'),
     password: yup.string().trim().required('Password is requied'),
@@ -53,23 +52,24 @@ const Login = () => {
     }
 
     const handleGgLogin = async () => {
-        const querySnapshot = await getDocs(collection(db, "users"))
         const { user } = await signInWithPopup(auth, ggProvider)
 
-        querySnapshot.forEach(doc => {
-            if (doc.data().uid === user.providerData[0].uid) {
-                return false
+        const userId = user.providerData[0].uid
+        const userDocRef = doc(db, 'users', `${userId}`)
+        const docSnap = await getDoc(userDocRef)
+        if (docSnap.exists()) {
+            console.log(docSnap.data());
+        }
+        else {
+            const userInfor = user.providerData[0]
+            const userData = {
+                ...userInfor,
+                recieveAddress: [],
+                orderHistory: []
             }
-            else {
-                const userInfor = user.providerData[0]
-                const userData = {
-                    ...userInfor,
-                    recieveAddress: [],
-                    orderHistory: []
-                }
-                addUser(userData)
-            }
-        })
+            addUser(userData)
+        }
+
     }
 
     const addUser = async (data) => {
@@ -80,7 +80,7 @@ const Login = () => {
         const authChange = onAuthStateChanged(auth, async (user) => {
             if (user) {
                 const userId = user.providerData[0].uid
-                const userDocRef = doc(db, 'users', userId)
+                const userDocRef = doc(db, 'users', `${userId}`)
                 const docSnap = await getDoc(userDocRef)
                 const userInfor = docSnap.data()
                 dispatch(setUserInfor(userInfor))

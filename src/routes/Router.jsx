@@ -6,6 +6,7 @@ import Detail from '../page/Detail/Detail'
 import Home from '../page/Home/Home'
 import Login from '../page/Login/Login'
 import Menu from '../page/Menu/Menu'
+import NotFound from '../page/NotFound/NotFound'
 import Products from '../page/Products/Products'
 import Account from '../page/UserAccount/Account'
 import AccountInfor from '../page/UserAccount/AccountInfor/AccountInfor'
@@ -34,6 +35,7 @@ const Router = () => {
                 </Route>
             </Route>
             <Route path="/login" element={<Login />} />
+            <Route path="*" element={<NotFound />} />
         </Switch>
     )
 }

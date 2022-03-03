@@ -22,12 +22,11 @@ const Header = ({ handleAviveMobileNav, activeMobileNav }) => {
 
     const isSigned = useSelector(state => state.user.isSigned)
     const userInfor = useSelector(state => state.user.infor)
+    const cartLength = useSelector(state => state.cart.list).length
     const dispatch = useDispatch()
 
     const [activeUserNav, setActiveUserNav] = useState(false)
     const [activeHeader, setActiveHeader] = useState(false)
-
-    const [cartLength, setCartLength] = useState(0)
 
 
     window.addEventListener('scroll', () => {
@@ -43,8 +42,6 @@ const Header = ({ handleAviveMobileNav, activeMobileNav }) => {
 
     window.addEventListener('unload', () => {
         signOut(auth)
-        dispatch(setIsSigned(false))
-        dispatch(setUserInfor({}))
     })
 
     useEffect(() => {
@@ -52,22 +49,17 @@ const Header = ({ handleAviveMobileNav, activeMobileNav }) => {
             onValue(ref(db, `cart/${userInfor.uid}/value/`), (snapshot) => {
                 const data = snapshot.val()
                 if (data !== null) {
-                    setCartLength(data.length)
                     dispatch(addCartData(data))
                 }
             })
         }
-        else {
-            setCartLength(0)
-        }
     }, [cartLength, isSigned])
 
 
-    const handleLogout = async () => {
-        dispatch(setIsSigned(false))
-        dispatch(setUserInfor({}))
+    const handleLogout = () => {
         signOut(auth)
             .then(() => {
+                dispatch(setIsSigned(false))
                 navigate('/')
             })
             .catch((err) => {

@@ -7,8 +7,6 @@ import Bg from '../../assets/img/bg-cart.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './cart.scss'
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
-import { useDispatch } from 'react-redux'
-import { addItem } from '../../redux/action/cart'
 
 const db = getDatabase(app)
 

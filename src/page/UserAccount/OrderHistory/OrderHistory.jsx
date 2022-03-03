@@ -2,6 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import './history.scss'
+import Bg from '../../../assets/img/bg-cart.png'
 
 const OrderHistory = () => {
     const userInfor = useSelector(state => state.user.infor)
@@ -40,7 +41,13 @@ const OrderHistory = () => {
                         }
                     </div>
                     :
-                    <div>a</div>
+                    <div className='empty'>
+                        <div className="img">
+                            <img src={Bg} alt="" />
+                        </div>
+                        <p>You don't have any orders yet</p>
+                        <Link to={'/menu/our-foods'} >Back to Menu</Link>
+                    </div>
             }
         </div>
     )
