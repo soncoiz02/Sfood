@@ -52,7 +52,7 @@ const Filter = () => {
 
     const handleSorting = async () => {
         const searchVal = searchParams.get('q')
-        navigate(`${pathname}?price_gte=${priceValue[0]}&price_lte=${priceValue[1]}&rate=${ratedValue}&_sort=price&_order=${sortValue === 0 ? 'desc' : 'asc'}${searchVal.length > 0 ? `&q=${searchVal}` : ''}`)
+        navigate(`${pathname}?price_gte=${priceValue[0]}&price_lte=${priceValue[1]}&rate=${ratedValue}&_sort=price&_order=${sortValue === 0 ? 'desc' : 'asc'}${searchVal ? `&q=${searchVal}` : ''}`)
     }
 
     const [activeFilter, setActiveFilter] = useState(false)
