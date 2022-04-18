@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Banner from '../../assets/img/banner.jpg'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import './products.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
@@ -16,9 +16,12 @@ import { useLocation } from 'react-router-dom'
 const Products = () => {
     const param = useParams().cate
     const { search, pathname } = useLocation()
+    const navigate = useNavigate()
 
     const listData = useSelector(state => state.foods.list)
     const dispatch = useDispatch()
+
+    const [searchVal, setSearchVal] = useState('')
 
     const [loader, setLoader] = useState(true)
 
@@ -62,6 +65,13 @@ const Products = () => {
         }
     }
 
+    const handleSearch = (e) => {
+        e.preventDefault()
+        if (searchVal.length > 0) {
+            navigate(`/menu/our-foods?q=${searchVal}`)
+        }
+    }
+
     return (
         <div className='Products'>
             {loader === true &&
@@ -75,12 +85,12 @@ const Products = () => {
                     <ProductSidebar param={param} setLoader={setLoader} />
                     <div className="Products__menu-foods">
                         <div className="search-form">
-                            <div className="form">
-                                <input type="text" placeholder='Search' />
-                                <button>
+                            <form className="form" onSubmit={(e) => handleSearch(e)}>
+                                <input type="text" placeholder='Search' value={searchVal} onChange={(e) => setSearchVal(e.target.value)} />
+                                <button type='submit'>
                                     <FontAwesomeIcon icon={faSearch} />
                                 </button>
-                            </div>
+                            </form>
                         </div>
                         <ListProducts data={listData} />
                     </div>

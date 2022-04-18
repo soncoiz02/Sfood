@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Slider from '@mui/material/Slider';
 import { makeStyles } from '@mui/styles';
 import React, { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import './filter.scss';
 
 
@@ -44,13 +44,15 @@ const Filter = () => {
     const classes = useStyles();
     const navigate = useNavigate()
     const { pathname } = useLocation()
+    const [searchParams, setSearchParams] = useSearchParams()
 
     const [priceValue, setPriceValue] = useState([0, 250]);
     const [ratedValue, setRatedValue] = useState(5)
     const [sortValue, setSortValue] = useState(0)
 
     const handleSorting = async () => {
-        navigate(`${pathname}?price_gte=${priceValue[0]}&price_lte=${priceValue[1]}&rate=${ratedValue}&_sort=price&_order=${sortValue === 0 ? 'desc' : 'asc'}`)
+        const searchVal = searchParams.get('q')
+        navigate(`${pathname}?price_gte=${priceValue[0]}&price_lte=${priceValue[1]}&rate=${ratedValue}&_sort=price&_order=${sortValue === 0 ? 'desc' : 'asc'}${searchVal.length > 0 ? `&q=${searchVal}` : ''}`)
     }
 
     const [activeFilter, setActiveFilter] = useState(false)
