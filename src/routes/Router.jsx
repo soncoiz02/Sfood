@@ -1,5 +1,5 @@
 import React from 'react'
-import { Routes as Switch, Route } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import Cart from '../page/Cart/Cart'
 import Checkout from '../page/Checkout/Checkout'
 import Detail from '../page/Detail/Detail'
@@ -15,28 +15,27 @@ import RequireAuth from './RequireAuth'
 
 const Router = () => {
     return (
-        <Switch>
+        <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/menu" element={<Menu />} >
-                <Route path="" element={<Menu />} />
-                <Route path=":cate" element={<Products />} />
-            </Route>
-            <Route path="/detail" element={<Detail />} >
-                <Route path="" element={<Detail />} />
-                <Route path=":id" element={<Detail />} />
+            <Route path="/menu">
+                <Route index element={<Menu />} />
+                <Route path=":cate" >
+                    <Route index element={<Products />} />
+                    <Route path=":id" element={<Detail />} />
+                </Route>
             </Route>
             <Route element={<RequireAuth />} >
                 <Route path='/checkout' element={<Checkout />} />
                 <Route path="/cart" element={<Cart />} />
-                <Route path='/account' element={<Account />}>
-                    <Route path='' element={<Account />} />
+                <Route path='/account'>
+                    <Route index element={<Account />} />
                     <Route path='order-history' element={<HistoryOrder />} />
                     <Route path='account-infor' element={<AccountInfor />} />
                 </Route>
             </Route>
             <Route path="/login" element={<Login />} />
             <Route path="*" element={<NotFound />} />
-        </Switch>
+        </Routes>
     )
 }
 

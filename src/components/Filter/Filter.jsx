@@ -37,7 +37,6 @@ const useStyles = makeStyles(
                 boxShadow: "0 0 0 5px rgba(155, 38, 182, 0.2)"
             }
         },
-        // don't remove the following lines
         focusVisible: {},
         active: {}
     },
@@ -50,21 +49,12 @@ const Filter = () => {
     const dispatch = useDispatch()
 
     const [priceValue, setPriceValue] = useState([0, 250]);
-    const [ratedValue, setRatedValue] = useState(0)
+    const [ratedValue, setRatedValue] = useState(5)
     const [sortValue, setSortValue] = useState(0)
 
     const handleSorting = async () => {
-
-        console.log({
-            priceValue,
-            ratedValue,
-            sortValue
-        });
-
         const filterParam = `price_gte=${priceValue[0]}&price_lte=${priceValue[1]}&rate=${ratedValue}&_sort=price&_order=${sortValue === 1 ? 'desc' : 'asc'}`
-        console.log(filterParam);
         const data = await foodApi.getFilter(filterParam)
-        console.log(data);
         dispatch(setAllFood(data))
         window.scrollTo(0, 0)
         // const listFoods = JSON.parse(window.localStorage.getItem('list-foods'))
@@ -127,7 +117,6 @@ const Filter = () => {
                         max={250}
                         value={priceValue}
                         onChange={(ev, v) => setPriceValue(v)}
-                        // onChangeCommitted={(ev, v) => console.log(v)}
                         valueLabelDisplay="off"
                         aria-labelledby="range-slider"
                     />
@@ -149,7 +138,7 @@ const Filter = () => {
                     <p className="title">Rated</p>
                     <Slider
                         aria-label="Temperature"
-                        defaultValue={30}
+                        defaultValue={ratedValue}
                         valueLabelDisplay='on'
                         value={ratedValue}
                         onChange={(ev, v) => setRatedValue(v)}

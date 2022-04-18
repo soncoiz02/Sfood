@@ -10,10 +10,12 @@ import { setAllFood } from '../../redux/action/food'
 import ListProducts from '../../components/ListProducts/ListProducts'
 import Loader from '../../components/Loader/Loader'
 import ProductSidebar from '../../components/ProductSidebar/ProductSidebar'
+import { useLocation } from 'react-router-dom'
 
 
 const Products = () => {
     const param = useParams().cate
+    const { search } = useLocation()
 
     const listData = useSelector(state => state.foods.list)
     const dispatch = useDispatch()

@@ -1,23 +1,19 @@
-import React, { useState } from 'react'
-import './login.scss'
-import { useForm } from "react-hook-form";
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from "yup";
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLock, faUser } from '@fortawesome/free-solid-svg-icons';
 import { faFacebookF, faGooglePlusG } from '@fortawesome/free-brands-svg-icons';
-
+import { faLock, faUser } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { FacebookAuthProvider, getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup } from "firebase/auth";
+import { doc, getDoc, getFirestore, setDoc } from 'firebase/firestore';
+import React, { useState } from 'react';
+import { useForm } from "react-hook-form";
 import { useDispatch } from 'react-redux';
-import { setUserInfor, setIsSigned } from '../../redux/action/user'
-
-import Login2 from '../../assets/img/login2.jpg'
-
-import { app } from '../../firebaseConfig'
-import { getAuth, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, onAuthStateChanged } from "firebase/auth";
-import { getFirestore, collection, doc, getDocs, setDoc, getDoc } from 'firebase/firestore'
-
 import { useNavigate } from 'react-router-dom';
+import * as yup from "yup";
+import Login2 from '../../assets/img/login2.jpg';
+import { app } from '../../firebaseConfig';
+import { setIsSigned, setUserInfor } from '../../redux/action/user';
+import './login.scss';
+
 
 
 const auth = getAuth(app);

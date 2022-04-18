@@ -1,16 +1,12 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import { faMapMarkerAlt, faStar } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCartArrowDown, faMapMarkerAlt, faShoppingCart, faStar } from '@fortawesome/free-solid-svg-icons'
-import './listproducts.scss'
-import { Link, useNavigate } from 'react-router-dom'
+import { getDatabase } from "firebase/database"
+import PropTypes from 'prop-types'
+import React from 'react'
 import LazyLoad from 'react-lazyload'
-import { useDispatch, useSelector } from 'react-redux'
-
-import { getDatabase } from "firebase/database";
+import { Link, useLocation } from 'react-router-dom'
 import { app } from '../../firebaseConfig'
-
-import { addItem } from '../../redux/action/cart'
+import './listproducts.scss'
 
 const database = getDatabase(app);
 
@@ -22,6 +18,7 @@ const LoadComponent = () => {
 
 const ListProducts = props => {
     const { data } = props
+    const { pathname } = useLocation()
     return (
         <div className='list-products'>
             {
@@ -32,7 +29,7 @@ const ListProducts = props => {
                             <div className="img">
                                 <img src={item.img} alt="" />
                             </div>
-                            <Link to={`/detail/${item.id}`} className="name">{item.name}</Link>
+                            <Link to={`${pathname}/${item.id}`} className="name">{item.name}</Link>
                             <div className="dsc">{item.dsc}</div>
                             <div className="price">${item.price}</div>
                             <div className="bottom">
