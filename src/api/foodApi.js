@@ -13,8 +13,8 @@ const foodApi = {
         const url = `/our-foods/${param}`
         return axiosClient.get(url)
     },
-    getFilter: (param) => {
-        const url = `/our-foods?${param}`
+    getFilter: (param, path) => {
+        const url = `${path}${param}`
         return axiosClient.get(url)
     }
 }

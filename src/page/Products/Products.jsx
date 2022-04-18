@@ -15,11 +15,10 @@ import { useLocation } from 'react-router-dom'
 
 const Products = () => {
     const param = useParams().cate
-    const { search } = useLocation()
+    const { search, pathname } = useLocation()
 
     const listData = useSelector(state => state.foods.list)
     const dispatch = useDispatch()
-
 
     const [loader, setLoader] = useState(true)
 
@@ -28,10 +27,10 @@ const Products = () => {
     useEffect(() => {
         const data = getData()
         return data
-    }, [param])
+    }, [param, search])
 
     const getData = async () => {
-        const res = await foodApi.getByCate(param)
+        const res = search ? await foodApi.getFilter(search, pathname.split('/')[2]) : await foodApi.getByCate(param)
         const filterData = getUnique(res, 'id')
         dispatch(setAllFood(filterData))
         window.scrollTo(0, 0)
@@ -53,8 +52,6 @@ const Products = () => {
 
         return unique;
     }
-
-
 
     window.onscroll = () => {
         if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {

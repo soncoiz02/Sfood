@@ -1,14 +1,11 @@
 import { faCheck, faFilter, faStar, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Slider from '@mui/material/Slider'
+import Slider from '@mui/material/Slider';
 import { makeStyles } from '@mui/styles';
-import { param } from 'jquery';
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux';
-import foodApi from '../../api/foodApi';
-import { setAllFood } from '../../redux/action/food';
+import React, { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import './filter.scss';
 
-import './filter.scss'
 
 const useStyles = makeStyles(
     {
@@ -45,62 +42,15 @@ const useStyles = makeStyles(
 
 const Filter = () => {
     const classes = useStyles();
-
-    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const { pathname } = useLocation()
 
     const [priceValue, setPriceValue] = useState([0, 250]);
     const [ratedValue, setRatedValue] = useState(5)
     const [sortValue, setSortValue] = useState(0)
 
     const handleSorting = async () => {
-        const filterParam = `price_gte=${priceValue[0]}&price_lte=${priceValue[1]}&rate=${ratedValue}&_sort=price&_order=${sortValue === 1 ? 'desc' : 'asc'}`
-        const data = await foodApi.getFilter(filterParam)
-        dispatch(setAllFood(data))
-        window.scrollTo(0, 0)
-        // const listFoods = JSON.parse(window.localStorage.getItem('list-foods'))
-        // const listSortByPrice = listFoods.filter(e => e.price >= priceValue[0] && e.price <= priceValue[1])
-        // const listSortByRate = listFoods.filter(e => e.rate === ratedValue)
-        // let mergeList = []
-        // let finalList = []
-        // if (ratedValue > 0) {
-        //     mergeList = getUnique([...listSortByPrice, ...listSortByRate], 'id')
-        //     finalList = mergeList.filter(e => e.price >= priceValue[0] && e.price <= priceValue[1] && e.rate === ratedValue)
-        // }
-        // else {
-        //     mergeList = [...listSortByPrice]
-        //     finalList = mergeList
-        // }
-
-        // if (sortValue === '1') {
-        //     finalList.sort((a, b) => a.price - b.price)
-        //     dispatchSortedData(finalList)
-        // }
-        // else if (sortValue === '2') {
-        //     finalList.sort((a, b) => b.price - a.price)
-        //     dispatchSortedData(finalList)
-        // }
-        // else {
-        //     dispatchSortedData(finalList)
-        // }
-    }
-
-    const getUnique = (arr, comp) => {
-
-        const unique = arr
-            .map(e => e[comp])
-
-            // store the keys of the unique objects
-            .map((e, i, final) => final.indexOf(e) === i && i)
-
-            // eliminate the dead keys & store unique objects
-            .filter(e => arr[e]).map(e => arr[e]);
-
-        return unique;
-    }
-
-    const dispatchSortedData = (data) => {
-        dispatch(setAllFood(data))
-        window.scrollTo(0, 0)
+        navigate(`${pathname}?price_gte=${priceValue[0]}&price_lte=${priceValue[1]}&rate=${ratedValue}&_sort=price&_order=${sortValue === 0 ? 'desc' : 'asc'}`)
     }
 
     const [activeFilter, setActiveFilter] = useState(false)
@@ -159,14 +109,14 @@ const Filter = () => {
                 <div className="sort">
                     <p className="title">Sort</p>
                     <div className="check-box">
-                        <input type="radio" id="low" name="sort" onClick={() => setSortValue(1)} />
+                        <input type="radio" id="low" name="sort" onChange={(e) => setSortValue(1)} />
                         <label htmlFor="low">
                             <div className="box">
                                 <FontAwesomeIcon icon={faCheck} />
                             </div>
                             <p>Low price - High price</p>
                         </label>
-                        <input type="radio" id="high" name="sort" onClick={() => setSortValue(2)} />
+                        <input type="radio" id="high" name="sort" onChange={(e) => setSortValue(0)} />
                         <label htmlFor="high">
                             <div className="box">
                                 <FontAwesomeIcon icon={faCheck} />
