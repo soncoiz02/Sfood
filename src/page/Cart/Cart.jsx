@@ -13,8 +13,14 @@ const db = getDatabase(app)
 const Cart = () => {
     const userInfor = useSelector(state => state.user.infor)
     const cart = useSelector(state => state.cart.list)
+    const [listQuantity, setListQuantity] = useState([])
 
     useEffect(() => {
+        const list = []
+        cart.forEach(item => {
+            list.push(item.quantity)
+        })
+        setListQuantity(list)
     }, [cart.length])
 
 
@@ -24,6 +30,19 @@ const Cart = () => {
 
     const handleDeleteAllItem = async () => {
         await remove(ref(db, `cart/${userInfor.uid}/value`))
+    }
+
+    const handlePlusQuantity = (index) => {
+        listQuantity[index]++
+        setListQuantity([...listQuantity])
+        cart[index].quantity++
+    }
+
+    const handleMinusQuantity = (index) => {
+        if (listQuantity[index] === 1) return
+        listQuantity[index]--
+        setListQuantity([...listQuantity])
+        cart[index].quantity--
     }
 
     return (
@@ -46,9 +65,9 @@ const Cart = () => {
                                                     <div className="price">${e.price}</div>
                                                     <div className="size">"{e.size}"</div>
                                                     <div className='quantity'>
-                                                        <button className="btn-minus" onClick={() => e.quantity -= 1}>-</button>
+                                                        <button className="btn-minus" onClick={() => handleMinusQuantity(index)}>-</button>
                                                         <div className="num">{e.quantity}</div>
-                                                        <button className="btn-plus" onClick={() => e.quantity += 1}>+</button>
+                                                        <button className="btn-plus" onClick={() => handlePlusQuantity(index)}>+</button>
                                                     </div>
                                                 </div>
                                             </div>
