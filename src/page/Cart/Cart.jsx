@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { app } from '../../firebaseConfig'
 import { getDatabase, onValue, ref, remove } from 'firebase/database'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import Bg from '../../assets/img/bg-cart.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './cart.scss'
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
+import { getCartData } from '../../utils/firebase'
+import { addCartData } from '../../redux/action/cart'
 
 const db = getDatabase(app)
 
@@ -14,6 +16,7 @@ const Cart = () => {
     const userInfor = useSelector(state => state.user.infor)
     const cart = useSelector(state => state.cart.list)
     const [listQuantity, setListQuantity] = useState([])
+    const dispatch = useDispatch()
 
     useEffect(() => {
         const list = []
@@ -25,11 +28,31 @@ const Cart = () => {
 
 
     const handleDeleteItem = async (index) => {
-        await remove(ref(db, `cart/${userInfor.uid}/value/${index}`))
+        if (window.confirm('Are you sure to remove this item from your cart?')) {
+            await remove(ref(db, `cart/${userInfor.uid}/value/${index}`))
+            const data = getCartData(userInfor.uid)
+            if (data) {
+                dispatch(addCartData(data))
+            }
+            else {
+                dispatch(addCartData([]))
+            }
+            alert('Delete success')
+        }
     }
 
     const handleDeleteAllItem = async () => {
-        await remove(ref(db, `cart/${userInfor.uid}/value`))
+        if (alert('Are you sure to remove all item from your cart?')) {
+            await remove(ref(db, `cart/${userInfor.uid}/value`))
+            const data = getCartData(userInfor.uid)
+            if (data) {
+                dispatch(addCartData(data))
+            }
+            else {
+                dispatch(addCartData([]))
+            }
+            alert('Delete success')
+        }
     }
 
     const handlePlusQuantity = (index) => {

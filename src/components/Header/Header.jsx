@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from 'react'
-import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
-import logo from '../../assets/img/logo.png'
+import { faBars, faShoppingBasket, faSignInAlt, faSignOutAlt, faUser, faUserClock } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars, faShoppingBasket, faSignInAlt, faUser, faSignOutAlt, faUserClock } from '@fortawesome/free-solid-svg-icons'
-import './header.scss'
-
-import { useSelector, useDispatch } from 'react-redux'
-import { setUserInfor, setIsSigned } from '../../redux/action/user'
-import { addCartData } from '../../redux/action/cart'
-
 import { getAuth, signOut } from 'firebase/auth'
 import { getDatabase, onValue, ref } from 'firebase/database'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
+import logo from '../../assets/img/logo.png'
 import { app } from '../../firebaseConfig'
+import { addCartData } from '../../redux/action/cart'
+import { setIsSigned } from '../../redux/action/user'
+import './header.scss'
+
+
 
 const auth = getAuth()
 const db = getDatabase(app)
@@ -22,7 +22,7 @@ const Header = ({ handleAviveMobileNav, activeMobileNav }) => {
 
     const isSigned = useSelector(state => state.user.isSigned)
     const userInfor = useSelector(state => state.user.infor)
-    const cartLength = useSelector(state => state.cart.list).length
+    const cart = useSelector(state => state.cart.list)
     const dispatch = useDispatch()
 
     const [activeUserNav, setActiveUserNav] = useState(false)
@@ -53,7 +53,7 @@ const Header = ({ handleAviveMobileNav, activeMobileNav }) => {
                 }
             })
         }
-    }, [cartLength, isSigned])
+    }, [cart.length, isSigned])
 
 
     const handleLogout = () => {
@@ -86,8 +86,8 @@ const Header = ({ handleAviveMobileNav, activeMobileNav }) => {
                     <Link to={'/cart'} className="btn-cart">
                         <FontAwesomeIcon icon={faShoppingBasket} />
                         {
-                            cartLength > 0 &&
-                            <div className="num">{cartLength}</div>
+                            cart.length > 0 &&
+                            <div className="num">{cart.length}</div>
                         }
                     </Link>
                     {
