@@ -27,8 +27,7 @@ const Router = () => {
             <Route element={<RequireAuth />} >
                 <Route path='/checkout' element={<Checkout />} />
                 <Route path="/cart" element={<Cart />} />
-                <Route path='/account'>
-                    <Route index element={<Account />} />
+                <Route path='/account' element={<Account />}>
                     <Route path='order-history' element={<HistoryOrder />} />
                     <Route path='account-infor' element={<AccountInfor />} />
                 </Route>
